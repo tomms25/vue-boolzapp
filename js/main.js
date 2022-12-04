@@ -50,28 +50,6 @@ createApp ({
           ],
         },
         {
-          name: 'Samuele',
-          avatar: 'img/avatar_3.jpg',
-          visible: true,
-          messages: [
-            {
-              date: '28/03/2020 10:10',
-              message: 'La Marianna va in campagna',
-              status: 'received'
-            },
-            {
-              date: '28/03/2020 10:20',
-              message: 'Sicuro di non aver sbagliato chat?',
-              status: 'sent'
-            },
-            {
-              date: '28/03/2020 16:15',
-              message: 'Ah scusa!',
-              status: 'received'
-            }
-          ],
-        },
-        {
           name: 'Alessandro B.',
           avatar: 'img/avatar_4.jpg',
           visible: true,
@@ -144,29 +122,45 @@ createApp ({
             }
           ],
         },
-        {
-          name: 'Davide',
-          avatar: 'img/avatar_3.jpg',
-          visible: true,
-          messages: [
-            {
-              date: '10/01/2020 15:30',
-              message: 'Ciao, andiamo a mangiare la pizza stasera?',
-              status: 'received'
-            },
-            {
-              date: '10/01/2020 15:50',
-              message: 'No, l\'ho già mangiata ieri, ordiniamo sushi!',
-              status: 'sent'
-            },
-            {
-              date: '10/01/2020 15:51',
-              message: 'OK!!',
-              status: 'received'
-            }
-          ],
-        }
       ]    
     }
   },
+
+  methods: {
+    userClick(i) {
+      this.active = i;
+    },
+   
+    addMessage(){
+      this.contacts[this.active].messages.push(
+        {
+          date: '10/04/2020 17:51',
+          message: this.newMessage,
+          status: 'sent'
+        });
+        this.newMessage = '';
+        
+        setTimeout(() => {
+          this.contacts[this.active].messages.push(
+            {
+              date: '10/04/2020 18:51',
+              message: 'ok',
+              status: 'received'
+            });
+          }, "1500")
+    },
+  },
+
+  computed: {
+    cercaNome(){
+      if(this.cercaUtente) {
+        return this.contacts.filter((user) => {
+          return user.name.toLowerCase().includes(this.cercaUtente)
+        });
+        }
+        else {
+          return this.contacts;
+        }
+      }
+    }
 }).mount('#app')
