@@ -4,10 +4,94 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="css/master.css">
     <title>Boolzapp</title>
 </head>
 <body>
+
+    <div id="app">
+        <div class="background">
+         
+          <div class="main-container">
+            <section>
+              <div class="user-container">
+                <div class="users-bar">
+    
+                  <!-- Main user -->
+                  <div class="main-user">
+                    <img src="img/avatar_io.jpg" alt="mio-avatar">
+                    <span>Tommaso Baccano</span>
+                  </div>
+                  <div class="chat-icons">
+                    <i class="fa-solid fa-circle-notch"></i>
+                    <i class="fa-solid fa-message"></i>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </div>
+                </div>
+    
+                <!-- Serving -->
+                <div class="serving">
+                  <i class="fa-solid fa-bell-slash"></i>
+                  <h5>Ricevi notifiche di nuovi messaggi</h5>
+                  <span>Attiva notifiche desktop</span>
+                </div>
+                <div class="search-user">
+                  <input type="text" placeholder="Cerca o inizia una nuova chat" v-model="cercaUtente">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                </div>
+
+
+                <!-- contatti -->
+
+                <div class="contact-container">
+                  <div class="user-contact" v-for="(user,i) in cercaNome" @click="userClick(i)" :class="{ 'select': active === i}">
+                    <img :src="user.avatar" alt="avatar-1">
+                    <div class="info-contact">
+                      <h5>{{user.name}}</h5>
+                      <p>{{user.messages[user.messages.length - 1].message}}</p>
+                    </div>
+                    <span>{{user.messages[user.messages.length - 1].date}}</span>
+                  </div>
+                </div>
+              </div>
+            </section>
+    
+            <!-- Right section-->
+            <section>
+              <div class="chat-container">
+                <div class="users-bar">
+                  <!-- Seleziona l'avatar scelto-->
+                    <img :src="cercaNome[active].avatar" alt="avatar">
+                    <div class="user-selected">
+                      <h5>{{cercaNome[active].name}}</h5>
+                      <p>Ultimo accesso alle 12:00</p>
+                    </div>
+                    
+                  <div class="icons-user">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <i class="fa-solid fa-paperclip"></i>
+                    <i class="fa-solid fa-ellipsis-vertical"></i>
+                  </div>
+                </div>
+    
+                <div class="chat-section">
+                  <div v-for="msg in contacts[active].messages" :class="msg.status === 'sent' ? 'sent' : 'received'">
+                    {{msg.message}}
+                    <span>{{msg.date}}</span>
+                  </div>
+                </div>
+    
+                <div class="write-section">
+                  <i class="fa-regular fa-face-smile"></i>
+                  <input type="text" placeholder="Scrivi un messaggio" v-model="newMessage" @keyup.enter="addMessage">
+                  <i class="fa-solid fa-microphone"></i>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div> 
 
 
 
